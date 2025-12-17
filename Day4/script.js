@@ -1,41 +1,46 @@
-const loginForm = document.getElementById("login_form")
+const inputBox = document.getElementById("inputData")
+const btn = document.getElementById("buttonSubmit")
+const listTask = document.getElementById("list")
+const error = document.getElementById("blankField")
 
-loginForm.addEventListener("submit", e => {
-    e.preventDefault()
+inputBox.addEventListener("input", e => {
+    if(inputBox.value !==  " ")
+    {
+        inputBox.classList.remove("is-invalid")
+        error.innerText = ""
+    }
+})
 
-    let email = document.getElementById("logemail")
-    let pass = document.getElementById("logpsd")
+inputBox.addEventListener("keydown",e => {
+    if(e.key === "Enter")
+        btn.click()
+})
 
-    let emailError = document.getElementById("emailErr")
-    let psdError = document.getElementById("passErr")
-
-    let validDone = true
-
-    
-    if (email.value.trim() === "" || !email.value.includes("@")) {
-        email.classList.add("is-invalid")
-        email.classList.remove("is-valid")
-        emailError.innerText = "Please enter a valid email!"
-        validDone = false
-    } else {
-        email.classList.remove("is-invalid")
-        email.classList.add("is-valid")
-        emailError.innerText = ""
+btn.addEventListener("click", e => {
+    let dataEntered = inputBox.value;
+    if(dataEntered === "")
+    {
+        inputBox.classList.add("is-invalid")
+        error.innerText = "Enter text in area and then add "
+        return
     }
 
-  if (pass.value.length < 6) {
-        pass.classList.add("is-invalid")
-        pass.classList.remove("is-valid")
-        psdError.innerText = "Password length must be at least 6 characters!"
-        validDone = false
-    } else {
-        pass.classList.remove("is-invalid")
-        pass.classList.add("is-valid")
-        psdError.innerText = ""
-    }
+    const listData = document.createElement("li")
+    listData.className = "list-group-item d-flex justify-content-between align-items-center";
+    const spanData = document.createElement("span")
+    spanData.innerText = dataEntered
 
+    const deleteBtn = document.createElement("button")
+    deleteBtn.className = "btn btn-danger"
+    deleteBtn.innerText = "Delete"
 
-    if (validDone) {
-        alert("Login Successful!!")
-    }
+    deleteBtn.addEventListener("click", e => {
+        listData.remove()
+    })
+
+    listData.appendChild(spanData)
+    listData.appendChild(deleteBtn)
+    listTask.appendChild(listData)
+    inputBox.value = ""
+    inputBox.focus() 
 })

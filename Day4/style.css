@@ -1,17 +1,12 @@
-body{
-    background-color: #f5f5f5;
 
+.inputbox input,.inputbox button{
+    display: inline-block;
+    vertical-align: middle;
+    
 }
-
-.login-card,.register-card{
-    margin-top: 200px;
-    width: 25%;
+.content-info{
+    width: 70%;
 }
-
-.is-valid{
-    border-color: green;
-}
-
-.is-invalid{
-    border-color: red;
+.inputbox button{
+    width: 28%;
 }
